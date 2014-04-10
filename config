@@ -39,10 +39,11 @@ set $music2 audacious
 
 set $memo ~/.i3/scripts/memo.sh
 set $memo1 i3.memo
-set $memo2 ~/Documents/Memo/terminator.memo
-set $memo3 ~/Documents/Memo/vim.memo
-set $memo4 ~/Documents/Memo/git.memo
-set $memo6 ~/Documents/i3.memo
+set $memo2 xfe.memo
+set $memo3 terminator.memo
+set $memo4 vim.memo
+set $memo5 git.memo
+set $memo6 i3.memo
 
 # mod
 set $mod Mod4
@@ -208,6 +209,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id osmo
 exec --no-startup-id parcellite
 exec --no-startup-id nitrogen --restore
+exec --no-startup-id xrandr --output LVDS --brightness 0.8
 # exec --no-startup-id 'workspace 9:notif; exec /usr/bin/urxvt'
 
 # applications 

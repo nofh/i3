@@ -45,6 +45,7 @@ set $memo4 vim.memo
 set $memo5 git.memo
 set $memo6 i3.memo
 
+set $screenshot gnome-screenshot -i
 # mod
 set $mod Mod4
 
@@ -120,11 +121,22 @@ bindsym $mod+eacute workspace 2
 bindsym $mod+quotedbl workspace 3
 bindsym $mod+apostrophe workspace 4
 bindsym $mod+parenleft workspace 5
-bindsym $mod+section workspace 6
+bindsym $mod+minus workspace 6
 bindsym $mod+egrave workspace 7
-bindsym $mod+exclam workspace 8:media
+bindsym $mod+underscore workspace 8:media
 bindsym $mod+ccedilla workspace 9:www
-bindsym $mod+agrave workspace 10:notif
+bindsym $mod+agrave workspace 10:notifworkspace
+
+bindsym $mod+KP_1 workspace 1
+bindsym $mod+KP_2 workspace 2
+bindsym $mod+KP_3 workspace 3
+bindsym $mod+KP_4 workspace 4
+bindsym $mod+KP_5 workspace 5
+bindsym $mod+KP_6 workspace 6
+bindsym $mod+KP_7 workspace 7
+bindsym $mod+KP_8 workspace 8:media
+bindsym $mod+KP_9 workspace 9:www
+bindsym $mod+KP_0 workspace 10:notif
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -137,6 +149,17 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8:media
 bindsym $mod+Shift+9 move container to workspace 9:www
 bindsym $mod+Shift+0 move container to workspace 10:notif
+
+bindsym $mod+Shift+KP_End  move container to workspace 1
+bindsym $mod+Shift+KP_Down move container to workspace 2
+bindsym $mod+Shift+KP_Next move container to workspace 3
+bindsym $mod+Shift+KP_Left move container to workspace 4
+bindsym $mod+Shift+KP_Begin move container to workspace 5
+bindsym $mod+Shift+KP_Right move container to workspace 6
+bindsym $mod+Shift+KP_Home move container to workspace 7
+bindsym $mod+Shift+KP_Up move container to workspace 8:media
+bindsym $mod+Shift+KP_Prior move container to workspace 9:www
+bindsym $mod+Shift+KP_Insert move container to workspace 10:notif
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
@@ -183,16 +206,18 @@ workspace_layout stacking
 
 # windows rules
 for_window [class="XTerm"] floating enable
-for_window [class="Calculatrice"] floating enable
+for_window [class="^Calculatrice$"] floating enable
 for_window [class="Event Tester"] floating enable
 for_window [class="Nautilus" instance="file_progress"] floating enable
-
+for_window [class="XVidCap"] floating enable
 
 # assign window on specific workspace
+assign [class="^Pidgin$"] 10:notif
 assign [class="^Osmo$"] 10:notif
 assign [class="^Iceweasel$"] 9:www
 assign [class="^mocp$"] 8:media
 assign [class="^Totem$"] 8:media
+assign [class="^Google Chrome$"] 1
 
 # popup during fullscreen
 # popup_during_fullscreen smart # fonctionne pas 
@@ -205,11 +230,13 @@ bindsym $mod+Shift+n move workspace to output right
 bindsym $mod+Shift+b move workspace to output left
 
 # automatic starting app
+exec --no-startup-id xrandr --output LVDS --brightness 0.8
 exec --no-startup-id nm-applet
+exec --no-startup-id amixer set Master mute
+exec --no-startup-id nitrogen --restore
 exec --no-startup-id osmo
 exec --no-startup-id parcellite
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id xrandr --output LVDS --brightness 0.8
+exec --no-startup-id pidgin
 # exec --no-startup-id 'workspace 9:notif; exec /usr/bin/urxvt'
 
 # applications 
@@ -265,13 +292,10 @@ bindsym $mod+F5 exec $memo $memo5
 bindsym $mod+F6 exec $memo $memo6
 bindsym $mod+F7 exec $memo $memo7
 
+# screenshot 
+bindsym $mod+Home exec $screenshot
+
 # Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-#       status_command i3status --config ~/.i3/i3status.conf 
-#}
-
-
 bar {
         position bottom
         status_command ~/.i3/scripts/conky
